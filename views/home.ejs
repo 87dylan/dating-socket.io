@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.socket.io/4.5.0/socket.io.min.js"
+        integrity="sha384-7EyYLQZgWBi67fBtVxw60/OWl1kjsfrPFcaU0pp0nAh+i8FD068QogUvg85Ewy1k"
+        crossorigin="anonymous"></script>
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>hello i am user<%=userobject.name%>
+    </h1>
+    <button onclick="sendMessege()">start matching</button>
+    <p id="findingMsg">finding</p>
+    <h1 id="msg"></h1>
+    <h2 id="h2"></h2>
+    <script>
+        var element;
+        const socket = io('http://localhost:3001')
+        socket.on('connection')
+        socket.on("updated", (data) => {
+            element.innerHTML = data;
+            element.style.color="red";
+
+        })
+      
+        //onclick
+        const sendMessege = () => {
+            //say finding
+            element = document.getElementById('findingMsg');
+            element.style.display = "block";
+            socket.emit('update', element.innerHTML);
+        }
+
+
+    </script>
+
+</body>
+
+</html>
